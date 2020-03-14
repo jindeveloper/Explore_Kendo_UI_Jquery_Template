@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/__Layout.cshtml";
+}
+
+<div id="output"></div>
+
+@section script{
+
+    <script>
+
+        //define a simple template
+        var template = kendo.template("<p>#= myContent #</p>");
+
+        //call the template referencing kendo.template and pass the data content
+        var result = template({ myContent: 'This is the content i need to see' });
+
+        //set the html of output div with the variable result
+        $("#output").html(result); //=> => <p>This is the content i need to see</p>
+
+    </script>
+}

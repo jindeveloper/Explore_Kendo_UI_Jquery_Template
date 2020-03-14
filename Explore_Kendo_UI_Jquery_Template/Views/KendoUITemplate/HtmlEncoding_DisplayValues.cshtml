@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "HtmlEncoding_DisplayValues";
+    Layout = "~/Views/Shared/__Layout.cshtml";
+}
+
+<div id="result">
+
+</div>
+<script type="text/x-kendo template" id="htmlOutput">
+    <pre>#:htmlContent#</pre>
+</script>
+
+<script>
+
+    var template = kendo.template($("#htmlOutput").html());
+
+    var result = template({ htmlContent: "<h2>This is my header</h2><p><strong>I'm strong</strong></p>" });
+
+    console.log(result);
+
+    $("#result").html(result);
+
+</script>
+

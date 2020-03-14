@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "InlineTemplate";
+    Layout = "~/Views/Shared/__Layout.cshtml";
+}
+
+@section styles{
+    <style>
+        .myParagraphClass {
+            color: red;
+            font-size: large;
+        }
+    </style>
+}
+<div id="output"></div>
+
+@section script{
+
+    <script>
+
+        //define an inline kendo template
+        var inlineTemplate = kendo.template("<p class='#= myCssClassName#'> #= myParagraphContent #</p>");
+
+        //deinfe the data and initialize the related properties
+        var dataWithParameterToPass = { myCssClassName: "myParagraphClass", myParagraphContent: "This is the content i need to see and color red" };
+
+        //call the template referencing the kendo.template and pass the data content
+        var result = inlineTemplate(dataWithParameterToPass);
+
+        console.log(result); //result => <p class='myParagraphClass'> This is the content i need to see and color red</p>
+
+        $("#output").html(result);
+
+    </script>
+}

@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Execute_Complex_JavaScriptCode";
+    Layout = "~/Views/Shared/__Layout.cshtml";
+}
+
+@section styles{
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        .textItalic {
+            font-style: italic;
+            color: red;
+        }
+    </style>
+}
+
+<div id="moviesContainer">
+
+    <table id="movies">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Rating</th>
+                <th>Year</th>
+                <th>Title</th>
+                <th>Staffs</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- switch syntax -->
+<!--
+    #switch (condition){
+        case value: #
+            #=value#
+        #break;#
+        #case value: #
+            #=value#
+        #break;#
+        #default:#
+            #=value#
+    #}#
+-->
+<!-- end of switch syntax -->
+
+<!-- if-else syntax -->
+<!--
+    #if (condition){#
+        #=value#
+    #}else{#
+        #=value#
+    #}#
+-->
+<!-- end of if-else syntax -->
+
+<script type="text/x-kendo template" id="movieTemplate">
+    <tr>
+        <td>#=rank#</td>
+        <td>#=rating#</td>
+        <td>
+            #switch(year){
+            case 1994:#
+            <span>#=year# <sub>90's is awesome </sub></span>
+            # break;#
+            #default:#
+            <span>#=year#</span>
+            #break;#
+            #}#
+        </td>
+        <td>#=title#</td>
+        <td>
+            <ul>
+                #for(var i=0;i< staffs.length; i++){#
+                #if(staffs[i] === "X"){#
+                <li class="textItalic">#=staffs[i]#</li>
+                #}else{#
+                <li>#=staffs[i]#</li>
+                #}#
+                #}#
+            </ul>
+        </td>
+    </tr>
+</script>
+
+@section script{
+
+    <script>
+
+        $(function () {
+
+            var movies = [
+                { 'rank': 1, 'rating': 9, 'year': 1994, 'title': 'Terminator', staffs: ['X', 'Y', 'Z'] },
+                { 'rank': 1, 'rating': 6, 'year': 2000, 'title': 'The God Father', staffs: ['X', 'Y', 'Z'] },
+                { 'rank': 1, 'rating': 5, 'year': 2000, 'title': 'Terminator 2', staffs: ['X', 'Y', 'Z'] },
+                { 'rank': 1, 'rating': 7, 'year': 2000, 'title': 'Terminator 3', staffs: ['X', 'Y', 'Z'] },
+                { 'rank': 1, 'rating': 8, 'year': 2000, 'title': 'Avengers The Movie', staffs: ['X', 'Y', 'Z'] }
+            ];
+
+            var templateIdLocation = $("#movieTemplate"),
+                template = kendo.template(templateIdLocation.html());
+
+            var result = kendo.render(template, movies);
+
+            console.log(result);
+
+            $("#movies tbody").html(result);
+
+        });
+    </script>
+
+}

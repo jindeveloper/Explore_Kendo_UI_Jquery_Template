@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "ExternalTemplate";
+    Layout = "~/Views/Shared/__Layout.cshtml";
+}
+
+<div id="output">
+
+</div>
+
+<script type="text/x-kendo template" id="myExternalTemplate">
+    <!-- Template content goes and starts here-->
+    #console.log(data);#
+    #if (header){#
+    <h2>#=content#</h2>
+    #}else{#
+    #=content#
+    #}#
+    <!-- Template content ends here-->
+</script>
+
+<script>
+
+    //initialize and get the external template
+    var externalTemplate = kendo.template($("#myExternalTemplate").html());
+
+    //initialize an array that will be passed to the external template
+    var data = [{ header: true, content: "Hello External Template" }, { header: false, content: "I'm a content" }];
+
+    var result = kendo.render(externalTemplate, data);
+
+    console.log(result); // result => 
+                            /*<!-- Template content goes and starts here-->
+    
+    
+                            <h2>Hello External Template</h2>
+    
+                            <!-- Template content ends here-->
+
+                            <!-- Template content goes and starts here-->
+    
+    
+                            I'm a content
+    
+                            <!-- Template content ends here-->*/
+
+    $("#output").html(result);
+
+</script>
+
+
